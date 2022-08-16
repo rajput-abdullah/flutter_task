@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_task/Constants/constant_colors.dart';
 import 'package:flutter_task/FirebaseAuthService/firebaseauthservice.dart';
 import 'package:flutter_task/auth/login.dart';
@@ -10,7 +8,7 @@ import 'package:provider/provider.dart';
 
 
 class SignUp extends StatefulWidget {
-  const SignUp({Key key}) : super(key: key);
+  const SignUp({Key ?key}) : super(key: key);
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -26,11 +24,14 @@ class _SignUpState extends State<SignUp> {
   bool validate=false;
 
 
+
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => SystemNavigator.pop(),
-      child: Scaffold(
+    return
+      // WillPopScope(
+      // onWillPop: ()=> true,
+      // child:
+      Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Container(
@@ -43,18 +44,6 @@ class _SignUpState extends State<SignUp> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Image.asset("assets/logo.png"),
-                              ],
-                            ),
-                          ),
-                        ],),
                       const Text(
                         "CREATE AN ACCOUNT",
                         style: TextStyle(color: Colors.black),
@@ -63,7 +52,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 50),
                     child: Column(
@@ -181,26 +170,26 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        TextField(
-                          style: const TextStyle(color: ConstantColor.WHITE, fontSize: 13),
-
-                          decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.only(left: 20),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40.0),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius:  BorderRadius.circular(40.0),
-                              ),focusedBorder: OutlineInputBorder(
-                            borderRadius:  BorderRadius.circular(40.0),
-                          ),
-                              fillColor: ConstantColor.DARK_BLUE,
-                              filled: true,
-                              suffixIcon: const Icon(Icons.keyboard_arrow_down_outlined, color: ConstantColor.WHITE, size: 30,),
-                              hintText: "NSCC CAMPUS*",
-                              hintStyle: const TextStyle(color: ConstantColor.WHITE,fontSize: 13)
-                          ),
-                        ),
+                        // TextField(
+                        //   style: const TextStyle(color: ConstantColor.WHITE, fontSize: 13),
+                        //
+                        //   decoration: InputDecoration(
+                        //       contentPadding: const EdgeInsets.only(left: 20),
+                        //       border: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(40.0),
+                        //       ),
+                        //       enabledBorder: OutlineInputBorder(
+                        //         borderRadius:  BorderRadius.circular(40.0),
+                        //       ),focusedBorder: OutlineInputBorder(
+                        //     borderRadius:  BorderRadius.circular(40.0),
+                        //   ),
+                        //       fillColor: ConstantColor.DARK_BLUE,
+                        //       filled: true,
+                        //       suffixIcon: const Icon(Icons.keyboard_arrow_down_outlined, color: ConstantColor.WHITE, size: 30,),
+                        //       hintText: "NSCC CAMPUS*",
+                        //       hintStyle: const TextStyle(color: ConstantColor.WHITE,fontSize: 13)
+                        //   ),
+                        // ),
                         const SizedBox(height: 10),
                         Align(
                           alignment: Alignment.centerRight,
@@ -214,37 +203,37 @@ class _SignUpState extends State<SignUp> {
                                 }
                               else if(passwordController.text.isEmpty)
                                 {
-                                  Toasts.getErrorToast(text: "Kindly enter email!");
+                                  Toasts.getErrorToast(text: "Kindly enter password!");
 
                                   // Util.showSnack(context, "Kindly enter password!");
                                 }
                               else if(retypePassController.text.isEmpty)
                                 {
-                                  Toasts.getErrorToast(text: "Kindly enter email!");
+                                  Toasts.getErrorToast(text: "Kindly enter password!");
 
                                   // Util.showSnack(context, "Kindly retype password!");
                                 }
                               else if(firstNameController.text.isEmpty)
                                 {
-                                  Toasts.getErrorToast(text: "Kindly enter email!");
+                                  Toasts.getErrorToast(text: "Kindly enter First name!");
 
                                   // Util.showSnack(context, "Kindly enter First name!");
                                 }
                               else if(lastNameController.text.isEmpty)
                                 {
-                                  Toasts.getErrorToast(text: "Kindly enter email!");
+                                  Toasts.getErrorToast(text: "Kindly enter Last name!");
 
                                   // Util.showSnack(context, "Kindly enter Last name!");
                                 }
                               else if(passwordController.text != retypePassController.text )
                                 {
-                                  Toasts.getErrorToast(text: "Kindly enter email!");
+                                  Toasts.getErrorToast(text: "Passwords Do Not Match!!!");
 
                                   // Util.showSnack(context, "Passwords Do Not Match!!!");
                                 }
                               else if(passwordController.text.length<8 )
                                 {
-                                  Toasts.getErrorToast(text: "Kindly enter email!");
+                                  Toasts.getErrorToast(text: "Password must contain 8 character");
 
                                   // Util.showSnack(context, "Password must contain 8 character.");
                                 }
@@ -253,19 +242,19 @@ class _SignUpState extends State<SignUp> {
                                   context.read<AuthenticationService>().signUp(email: emailController.text.trim(), password: passwordController.text.trim()).then((value) => {
                                     if(value=="weak-password")
                                       {
-                                      Toasts.getErrorToast(text: "Kindly enter email!")
+                                      Toasts.getErrorToast(text: "Weak Password!!")
 
-                                  // Util.showSnack(context, "Weak Password!!\nPassword must contain at least one special character, lower & uppercase letter and numbers.")
+                                  // Util.showSnack(context, "!\nPassword must contain at least one special character, lower & uppercase letter and numbers.")
                                       }
                                     else if( value=="email-already-in-use")
                                       {
-                                      Toasts.getErrorToast(text: "Kindly enter email!")
+                                      Toasts.getErrorToast(text: "The account already exists for that email")
 
                                       // Util.showSnack(context, "The account already exists for that email.")
                                       }
                                     else if(value=="something-went-wrong")
                                       {
-                                      Toasts.getErrorToast(text: "Kindly enter email!")
+                                      Toasts.getErrorToast(text: "Something Went Wrong!")
 
 
                                       // Util.showSnack(context, "Something Went Wrong!!");
@@ -273,13 +262,13 @@ class _SignUpState extends State<SignUp> {
                                       {
                                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Login())),
                                         // Util.showSnack(context, "Successfully Signed Up!")
-                                        Toasts.getErrorToast(text: "Kindly enter email!")
+                                        Toasts.getErrorToast(text: "Successfully Signed Up!")
 
                                       }
 
                                     else
                                       {
-                                        Toasts.getErrorToast(text: "Kindly enter email!")
+                                        Toasts.getErrorToast(text: "Something Went Wrong")
 
                                         // Util.showSnack(context, "Something Went Wrong!!")
 
@@ -325,8 +314,8 @@ class _SignUpState extends State<SignUp> {
               ],
             )
         ),
-      ),
-    );
+      );
+    // );
   }
 
 

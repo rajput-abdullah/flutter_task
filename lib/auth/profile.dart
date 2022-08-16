@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_task/Constants/constant_colors.dart';
 
 
 class Profile extends StatefulWidget {
-  const Profile({Key key}) : super(key: key);
+  const Profile({Key ?key}) : super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();

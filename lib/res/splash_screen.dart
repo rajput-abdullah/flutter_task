@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key key}) : super(key: key);
+  const SplashScreen({Key ?key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -21,9 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer(
         const Duration(seconds: 3),
-            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => const AuthenticationWrapper())));
+            () =>
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) =>  AuthenticationWrapper())));
     super.initState();
+    // AuthenticationWrapper()
   }
 
   @override
@@ -181,19 +183,19 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 class AuthenticationWrapper extends StatelessWidget {
-  const AuthenticationWrapper({Key key}) : super(key: key);
+  const AuthenticationWrapper({Key ?key}) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
-
-    if(firebaseUser!=null)
-    {
-      return  UsersListScreen();
-    }
-    else {
+    // final firebaseUser = context.watch<User>();
+    //
+    // if(firebaseUser!=null)
+    // {
+    //   return  UsersListScreen();
+    // }
+    // else {
       return  Login();
-    }
+    // }
   }
 }

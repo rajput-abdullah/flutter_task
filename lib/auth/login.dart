@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_task/Constants/constant_colors.dart';
 import 'package:flutter_task/FirebaseAuthService/firebaseauthservice.dart';
 import 'package:flutter_task/auth/sign_up_screen.dart';
@@ -10,7 +8,7 @@ import 'package:provider/provider.dart';
 
 
 class Login extends StatefulWidget {
-  const Login({Key key}) : super(key: key);
+  const Login({Key ?key}) : super(key: key);
 
   @override
   _LoginState createState() => _LoginState();
@@ -24,10 +22,12 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: WillPopScope(
-          onWillPop: () => SystemNavigator.pop(),
-
-          child: Container(
+      body:
+      // WillPopScope(
+      //     onWillPop: () => SystemNavigator.pop(),
+      //
+      //     child:
+          Container(
             color: ConstantColor.WHITE,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -36,21 +36,8 @@ class _LoginState extends State<Login> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Image.asset("assets/logo.png"),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
                       const Text(
-                        "BUILD A BUDGET AND TRACK YOUR SAVING",
+                        "LOGIN SCREEN",
                         style: TextStyle(color: Colors.black),
                       )
                     ],
@@ -122,7 +109,7 @@ class _LoginState extends State<Login> {
 
                               } else if (passwordController.text.isEmpty) {
                                 // Util.showSnack(context, "Kindly enter password!");
-                                Toasts.getErrorToast(text: "Kindly enter email!");
+                                Toasts.getErrorToast(text: "Kindly enter password!");
 
                               } else {
                                 context
@@ -134,13 +121,13 @@ class _LoginState extends State<Login> {
                                       if(value=="user-not-found")
                                         {
                                           // Util.showSnack(context, ("No user found for that email."));
-                                          Toasts.getErrorToast(text: "Kindly enter email!");
+                                          Toasts.getErrorToast(text: "No user found for that email.");
 
                                         }
                                       else if(value=="wrong-password")
                                         {
                                           // Util.showSnack(context, ("Wrong password provided for that user."));
-                                          Toasts.getErrorToast(text: "Kindly enter email!");
+                                          Toasts.getErrorToast(text: "Wrong password provided for that user.");
 
                                         }
 
@@ -152,13 +139,13 @@ class _LoginState extends State<Login> {
                                                   builder: (context) =>
                                                    UsersListScreen()));
                                           // Util.showSnack(context, "Successfully signed in!!");
-                                          Toasts.getErrorToast(text: "Kindly enter email!");
+                                          Toasts.getErrorToast(text: "Successfully signed in!!");
 
                                         }
                                       else
                                         {
                                           // Util.showSnack(context, "Something Went Wrong!!");
-                                          Toasts.getErrorToast(text: "Kindly enter email!");
+                                          Toasts.getErrorToast(text: "Something Went Wrong!!");
 
                                         }
                                 });
@@ -201,8 +188,8 @@ class _LoginState extends State<Login> {
                   ),
                 )
               ],
-            )),
-      ),
+            ))
+      // ),
     );
   }
 }

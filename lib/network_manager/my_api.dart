@@ -7,99 +7,99 @@ import 'package:flutter_task/res/toasts.dart';
 import 'models.dart';
 
 class MyApi {
-  static Future<dynamic> callPostApi(
-      {String url,
-      dynamic body,
-      Map<String, dynamic> parameters,
-      Map<String, dynamic> myHeaders,
-      dynamic modelName}) async {
-    try {
-      var dio = Dio();
-      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (HttpClient client) {
-        client.badCertificateCallback =
-            (X509Certificate cert, String host, int port) => true;
-        return client;
-      };
-      var connectivityResult = await (Connectivity().checkConnectivity());
-      if (connectivityResult != ConnectivityResult.none) {
-        Response _response = await dio.post(url,
-            options: Options(headers: myHeaders),
-            data: body,
-            queryParameters: parameters);
-        switch (_response.statusCode) {
-          case 200:
-            dynamic modelobj = await Models.getModelObject(modelName, _response.data);
-            if (modelobj.code == 1) {
-              return modelobj;
-            } else {
-              Toasts.getErrorToast(text: modelobj.message);
-            }
-            return null;
-          default:
-            Toasts.getErrorToast(text: Strings.badHappenedError);
-            return null;
-        }
-      } else {
-        Toasts.getErrorToast(text: Strings.noInternetError);
-        return null;
-      }
-    } on DioError catch (ex) {
-      if (ex.response != null) {
-        switch (ex.response.statusCode) {
-          case 400:
-            Toasts.getErrorToast(text: ex.response?.data["data"]["message"]);
-            return null;
-          case 401:
-            Toasts.getErrorToast(text: ex.response?.data["data"]["message"]);
-            return null;
-
-      // if(ex.response?.data == ""){
-            //   dynamic modelobj;
-            //   await RefreshToken().onRefreshTokenApi().
-            //   then((value) async{
-            //     if(value) {
-            //       Map<String, dynamic> header = {
-            //         "Content-Type": "application/json",
-            //         'Authorization': PreferenceUtils.getToken()
-            //       };
-            //       modelobj = await callPostApi(
-            //           parameters: parameters,
-            //           modelName: modelName,
-            //           body: body,
-            //           url: url,
-            //           myHeaders: header
-            //       );
-            //       return modelobj;
-            //     }
-            //   });
-            //   return modelobj;
-            // }
-            // else{
-            //   Toasts.getErrorToast(text: ex.response?.data["data"]["message"]);
-            //   return null;
-            // }
-
-          case 500:
-            Toasts.getErrorToast(text: "Internal Server Error");
-            return null;
-          default:
-            Toasts.getErrorToast(text: Strings.badHappenedError);
-            return null;
-        }
-      } else {
-        Toasts.getErrorToast(text: Strings.badHappenedError);
-      }
-    } on Exception {
-      Toasts.getErrorToast(text: Strings.badHappenedError);
-      return null;
-    }
-  }
+  // static Future<dynamic> callPostApi(
+  //     {String url,
+  //     dynamic body,
+  //     Map<String, dynamic> parameters,
+  //     Map<String, dynamic> myHeaders,
+  //     dynamic modelName}) async {
+  //   try {
+  //     var dio = Dio();
+  //     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+  //         (HttpClient client) {
+  //       client.badCertificateCallback =
+  //           (X509Certificate cert, String host, int port) => true;
+  //       return client;
+  //     };
+  //     var connectivityResult = await (Connectivity().checkConnectivity());
+  //     if (connectivityResult != ConnectivityResult.none) {
+  //       Response _response = await dio.post(url,
+  //           options: Options(headers: myHeaders),
+  //           data: body,
+  //           queryParameters: parameters);
+  //       switch (_response.statusCode) {
+  //         case 200:
+  //           dynamic modelobj = await Models.getModelObject(modelName, _response.data);
+  //           if (modelobj.code == 1) {
+  //             return modelobj;
+  //           } else {
+  //             Toasts.getErrorToast(text: modelobj.message);
+  //           }
+  //           return null;
+  //         default:
+  //           Toasts.getErrorToast(text: Strings.badHappenedError);
+  //           return null;
+  //       }
+  //     } else {
+  //       Toasts.getErrorToast(text: Strings.noInternetError);
+  //       return null;
+  //     }
+  //   } on DioError catch (ex) {
+  //     if (ex.response != null) {
+  //       switch (ex.response.statusCode) {
+  //         case 400:
+  //           Toasts.getErrorToast(text: ex.response?.data["data"]["message"]);
+  //           return null;
+  //         case 401:
+  //           Toasts.getErrorToast(text: ex.response?.data["data"]["message"]);
+  //           return null;
+  //
+  //     // if(ex.response?.data == ""){
+  //           //   dynamic modelobj;
+  //           //   await RefreshToken().onRefreshTokenApi().
+  //           //   then((value) async{
+  //           //     if(value) {
+  //           //       Map<String, dynamic> header = {
+  //           //         "Content-Type": "application/json",
+  //           //         'Authorization': PreferenceUtils.getToken()
+  //           //       };
+  //           //       modelobj = await callPostApi(
+  //           //           parameters: parameters,
+  //           //           modelName: modelName,
+  //           //           body: body,
+  //           //           url: url,
+  //           //           myHeaders: header
+  //           //       );
+  //           //       return modelobj;
+  //           //     }
+  //           //   });
+  //           //   return modelobj;
+  //           // }
+  //           // else{
+  //           //   Toasts.getErrorToast(text: ex.response?.data["data"]["message"]);
+  //           //   return null;
+  //           // }
+  //
+  //         case 500:
+  //           Toasts.getErrorToast(text: "Internal Server Error");
+  //           return null;
+  //         default:
+  //           Toasts.getErrorToast(text: Strings.badHappenedError);
+  //           return null;
+  //       }
+  //     } else {
+  //       Toasts.getErrorToast(text: Strings.badHappenedError);
+  //     }
+  //   } on Exception {
+  //     Toasts.getErrorToast(text: Strings.badHappenedError);
+  //     return null;
+  //   }
+  // }
 
   static Future<dynamic> callGetApi(
-      {String url,
-      Map<String, dynamic> parameters,
-      Map<String, dynamic> myHeaders,
+      {String ?url,
+      Map<String, dynamic>? parameters,
+      Map<String, dynamic> ?myHeaders,
       dynamic modelName}) async {
     try {
       var dio = Dio();
@@ -111,17 +111,17 @@ class MyApi {
       };
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult != ConnectivityResult.none) {
-        Response _response = await dio.get(url,
+        Response _response = await dio.get(url!,
             options: Options(headers: myHeaders), queryParameters: parameters);
         switch (_response.statusCode) {
           case 200:
             dynamic getModelObj = await Models.getModelObject(modelName, _response.data);
-            if (getModelObj.code == 1) {
+            // if (getModelObj.code == 1) {
               return getModelObj;
-            } else {
-              Toasts.getErrorToast(text: getModelObj.message);
-            }
-            return null;
+            // } else {
+            //   Toasts.getErrorToast(text: getModelObj.message);
+            // }
+            // return null;
 
           default:
             Toasts.getErrorToast(text: Strings.badHappenedError);
@@ -133,7 +133,7 @@ class MyApi {
       }
     } on DioError catch (ex) {
       if (ex.response != null) {
-        switch (ex.response.statusCode) {
+        switch (ex.response?.statusCode) {
           case 400:
             Toasts.getErrorToast(text: ex.response?.data["data"]["message"]);
             return null;

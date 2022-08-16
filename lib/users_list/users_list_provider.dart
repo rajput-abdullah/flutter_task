@@ -6,13 +6,13 @@ import 'package:flutter_task/network_manager/models.dart';
 import 'package:flutter_task/network_manager/my_api.dart';
 
 class UsersListProvider extends ChangeNotifier{
-  BuildContext context;
+  late BuildContext context;
   UsersListModel usersListModel =UsersListModel();
 
   List<dynamic> productList = [];
 
 
-  Future<void> init({BuildContext context}) async {
+  Future<void> init({required BuildContext context}) async {
     this.context = context;
     await usersListApi();
   }

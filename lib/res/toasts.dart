@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 
 class Toasts {
-  static getErrorToast({@required String text}) async {
+  static getErrorToast({@required String ?text}) async {
     await Fluttertoast.showToast(
         msg: text ?? "please try again",
         toastLength: Toast.LENGTH_SHORT,
@@ -15,7 +15,7 @@ class Toasts {
         fontSize: 16.0);
   }
 
-  static getSuccessToast({@required String text}) async {
+  static getSuccessToast({@required String ?text}) async {
     await Fluttertoast.showToast(
         msg: text ?? "please try again",
         toastLength: Toast.LENGTH_SHORT,
@@ -26,7 +26,7 @@ class Toasts {
         fontSize: 16.0);
   }
 
-  static getWarningToast({@required String text}) async {
+  static getWarningToast({@required String ?text}) async {
     await Fluttertoast.showToast(
         msg: text ?? "please try again",
         toastLength: Toast.LENGTH_SHORT,
